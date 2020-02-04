@@ -6,26 +6,25 @@ class CSVOperator:
 		self.CSVFile = csv.reader(CSVFile)
 		self.FileName = FileName
 
-	def Transform(self, StartRow, StartRange, SaveFile = True, OutName=""):
+	def Transform(self, StartColumn, StartRow, SaveFile = True, OutName=""):
 		if OutName == "":
 			OutName = self.FileName + "_transform.csv"
 		self.CSVTransform = []
 		count = 0
 		for row in self.CSVFile:
 			count += 1
-			if count < StartRow:
+			if count < StartColumn:
 				self.CSVTransform.append(row)
 				continue
 			self.CSVTransform.append([])
 			for j in range(len(row)):
-				print(row[j])
-				if j + 1 <= StartRange:
-					self.CSVTransform.append(row[j])
+				if j + 1 <= StartRow:
+					self.CSVTransform[-1].append(row[j])
 				else:
 					if row[j] == "":
 						continue
 					else:
-						self.CSVTransform.append(["" for i in range(StartRange)])
+						self.CSVTransform.append(["" for i in range(StartRow - 1)])
 						self.CSVTransform[-1].append(row[j])
 		if SaveFile:
 			with open(OutName, "wt", encoding="utf-8", newline="") as FileTansform:

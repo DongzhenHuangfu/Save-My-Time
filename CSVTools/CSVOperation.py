@@ -1,33 +1,31 @@
 import csv
 
-class CSVOperator:
-	def __init__(self, FileName):
-		CSVFile = open(FileName + ".csv", "rt", encoding="utf-8")
-		self.CSVFile = csv.reader(CSVFile)
-		self.FileName = FileName
+def transform(ReadName, StartRow, StartColumn, SaveName = ""):
+	if SaveName == "":
+		SaveName = ReadName + "_transform.csv"
 
-	def Transform(self, StartColumn, StartRow, SaveFile = True, OutName=""):
-		if OutName == "":
-			OutName = self.FileName + "_transform.csv"
-		self.CSVTransform = []
+	with open(ReadName + ".csv", "rt", encoding="utf-8") as ReadFile:
+		CSVFile = csv.reader(ReadFile)
 		count = 0
-		for row in self.CSVFile:
+		Ret = []
+
+		for row in CSVFile:
 			count += 1
-			if count < StartColumn:
-				self.CSVTransform.append(row)
+			if count < StartRow:
+				Ret.append(row)
 				continue
-			self.CSVTransform.append([])
+			Ret.append([])
+
 			for j in range(len(row)):
-				if j + 1 <= StartRow:
-					self.CSVTransform[-1].append(row[j])
+				if j + 1 <= StartColumn:
+					Ret[-1].append(row[j])
 				else:
 					if row[j] == "":
 						continue
 					else:
-						self.CSVTransform.append(["" for i in range(StartRow - 1)])
-						self.CSVTransform[-1].append(row[j])
-		if SaveFile:
-			with open(OutName, "wt", encoding="utf-8", newline="") as FileTansform:
-				CSVWriter = csv.writer(FileTansform)
-				for row in self.CSVTransform:
-					CSVWriter.writerow(row)
+						Ret.append(["" for i in range(StartColumn-1)])
+						Ret[-1].append(row[j])
+	with open(SaveName, "wt", encoding="utf-8", newline="") as SaveFile:
+		CSVWriter = csv.writer(SaveFile)
+		for row in Ret:
+			CSVWriter.writerow(row)

@@ -3,6 +3,8 @@ import csv
 def transform(ReadName, StartRow, StartColumn, SaveName = ""):
 	if SaveName == "":
 		SaveName = ReadName + "_transform.csv"
+	else:
+		SaveName += ".csv"
 
 	with open(ReadName + ".csv", "rt", encoding="utf-8") as ReadFile:
 		CSVFile = csv.reader(ReadFile)

@@ -17,7 +17,7 @@ There are some functions which will save your time while handling a CSV file.
 | ReadName | string | Name of CSV file, without ".csv" |
 | StartRow | int | Start row number |
 | StartColumn | int | Start column number |
-| SaveName | string | Name of output file, default: SaveName + "_transform.csv" |
+| SaveName | string | Name of output file without ".csv", default: SaveName + "_transform" |
 
 ##<T id="Transform"> Transform </T>
 

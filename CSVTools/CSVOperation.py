@@ -1,6 +1,22 @@
 import csv
 
 def transform(ReadName, StartRow, StartColumn, EndRow = -1, EndColumn = -1, SaveName = ""):
+	if not isinstance(StartRow, int):
+		raise Exception('StartRow must be an int!')
+	if not isinstance(StartColumn, int):
+		raise Exception('StartColumn must be an int!')
+	if not isinstance(EndRow, int):
+		raise Exception('EndRow must be an int!')
+	if not isinstance(EndColumn, int):
+		raise Exception('EndColumn must be an int!')
+	if not isinstance(SaveName, str):
+		raise Exception('SaveName must be a string!')
+
+	if EndRow < StartRow:
+		raise Exception('EndRow < StartRow!')
+	if EndColumn < StartColumn:
+		raise Exception('EndColumn < StartColumn!')
+
 	if SaveName == "":
 		SaveName = ReadName + "_transform.csv"
 	else:
